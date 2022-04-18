@@ -5,8 +5,29 @@ import ContextPlanets from '../Context/ContextPlanets';
 function PlanetTable() {
   const planetContext = useContext(ContextPlanets);
   const filterContext = useContext(ContextFilter);
-  const filteredPlanets = planetContext
+
+  const filteredNamePlanets = planetContext
     .filter((planet) => planet.name.includes(filterContext.filterByName.name));
+
+  const filteredOperadorPlanets = filteredNamePlanets
+    .filter((planet) => filterContext.filterByNumericValues
+      .map((filters) => {
+        if (filters.comparison === 'maior que'
+          && planet[filters.column] > filters.value) {
+          return true;
+        }
+        if (filters.comparison === 'menor que'
+        && (planet[filters.column] < filters.value
+          || planet[filters.column] === 'unknown')) {
+          return true;
+        }
+        if (filters.comparison === 'igual a'
+        && planet[filters.column] === filters.value) {
+          return true;
+        }
+        return false;
+      })[0]);
+  console.log(filteredOperadorPlanets);
 
   return (
     <table>
@@ -55,7 +76,7 @@ function PlanetTable() {
       </thead>
       <tbody>
         {
-          filteredPlanets.map((planet, index) => (
+          filteredOperadorPlanets.map((planet, index) => (
             <tr key={ index }>
               <td>
                 { planet.name }

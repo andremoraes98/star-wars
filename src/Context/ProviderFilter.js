@@ -4,18 +4,15 @@ import ContextFilter from './ContextFilter';
 
 function ProviderFilter({ children }) {
   const [name, setName] = useState('');
+  const [filter, setFilter] = useState([]);
+
   const context = {
     filterByName: {
       name,
     },
-    filterByNumericValues: [
-      {
-        column: '',
-        comparison: '',
-        value: '',
-      },
-    ],
+    filterByNumericValues: filter,
     setName,
+    setFilter,
   };
 
   return (
