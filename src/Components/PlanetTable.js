@@ -9,7 +9,7 @@ function PlanetTable() {
   const planetContext = useContext(ContextPlanets);
 
   const filteredOperadorPlanets = planetContext
-    .filter((planet) => filterContext.filterByNumericValues
+    .filter((planet) => !filterContext.filterByNumericValues
       .map((filters) => {
         if (filters.comparison === 'maior que'
         && parseFloat(planet[filters.column]) > parseFloat(filters.value)) {
@@ -24,7 +24,7 @@ function PlanetTable() {
           return true;
         }
         return false;
-      })[0]);
+      }).includes(false));
 
   const filteredNamePlanets = filterContext.filterByNumericValues.length === 0
     ? planetContext
@@ -44,14 +44,12 @@ function PlanetTable() {
                 key={ index }
               />
             )))
-            : (
-              filteredNamePlanets.map((planets, index) => (
-                <TableRow
-                  planet={ planets }
-                  key={ index }
-                />
-              ))
-            )
+            : (filteredNamePlanets.map((planets, index) => (
+              <TableRow
+                planet={ planets }
+                key={ index }
+              />
+            )))
         }
       </tbody>
     </table>
