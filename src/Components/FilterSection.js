@@ -15,6 +15,11 @@ function FilterSection() {
     .filter((choice) => !filterByNumericValues
       .map((filter) => filter.column === choice).includes(true));
 
+  const removeFilter = ({ target }) => {
+    const { parentElement: { firstChild: { id: filterName } } } = target;
+    setFilter(filterByNumericValues.filter((filter) => filterName !== filter.column));
+  };
+
   return (
     <section>
       <img
@@ -93,7 +98,31 @@ function FilterSection() {
         >
           Filtrar
         </button>
+
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ () => setFilter([]) }
+        >
+          Limpar Filtros
+        </button>
       </div>
+      { filterByNumericValues.map((choice) => (
+        <div
+          data-testid="filter"
+          key={ choice.value }
+        >
+          <span id={ choice.column }>{`${choice.column}, ` }</span>
+          <span>{`${choice.comparison} e valor ` }</span>
+          <span>{`${choice.value}.` }</span>
+          <button
+            type="button"
+            onClick={ removeFilter }
+          >
+            x
+          </button>
+        </div>
+      )) }
     </section>
   );
 }
