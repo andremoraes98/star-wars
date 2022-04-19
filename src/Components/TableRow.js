@@ -4,43 +4,43 @@ import PropTypes from 'prop-types';
 function TableRow({ planet }) {
   return (
     <tr>
-      <td>
+      <td className="td-border">
         { planet.name }
       </td>
-      <td>
+      <td className="td-border">
         { planet.rotation_period }
       </td>
-      <td>
+      <td className="td-border">
         { planet.orbital_period }
       </td>
-      <td>
+      <td className="td-border">
         { planet.diameter }
       </td>
-      <td>
+      <td className="td-border">
         { planet.climate }
       </td>
-      <td>
+      <td className="td-border">
         { planet.gravity }
       </td>
-      <td>
+      <td className="td-border">
         { planet.terrain }
       </td>
-      <td>
+      <td className="td-border">
         { planet.surface_water }
       </td>
-      <td>
+      <td className="td-border">
         { planet.population }
       </td>
-      <td>
+      <td className="td-border">
         { planet.films }
       </td>
-      <td>
+      <td className="td-border">
         { planet.created }
       </td>
-      <td>
+      <td className="td-border">
         { planet.edited }
       </td>
-      <td>
+      <td className="td-border">
         { planet.url }
       </td>
     </tr>
