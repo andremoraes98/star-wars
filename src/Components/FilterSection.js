@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import ContextFilter from '../Context/ContextFilter';
+import logo from '../image/projectIntro.gif';
 
 function FilterSection() {
   const { setName, setFilter, filterByNumericValues } = useContext(ContextFilter);
@@ -15,7 +16,12 @@ function FilterSection() {
       .map((filter) => filter.column === choice).includes(true));
 
   return (
-    <>
+    <section>
+      <img
+        src={ logo }
+        alt="Star-Wars-Logo"
+      />
+
       <label htmlFor="name-filter">
         Name:
         <input
@@ -30,62 +36,65 @@ function FilterSection() {
         />
       </label>
 
-      <label htmlFor="column-filter">
-        Coluna:
-        <select
-          data-testid="column-filter"
-          id="column-filter"
-          value={ columnValue }
-          onChange={ ({ target }) => {
-            setColumnValue(target.value);
-          } }
+      <div className="column-filter">
+        <label htmlFor="column-filter">
+          Coluna:
+          <select
+            data-testid="column-filter"
+            id="column-filter"
+            value={ columnValue }
+            onChange={ ({ target }) => {
+              setColumnValue(target.value);
+            } }
+          >
+            { renderArrayOptions
+              .map((choice) => <option key={ choice }>{ choice }</option>) }
+          </select>
+        </label>
+
+        <label htmlFor="comparison-filter">
+          Operador:
+          <select
+            data-testid="comparison-filter"
+            id="comparison-filter"
+            value={ comparisonValue }
+            onChange={ ({ target }) => {
+              setComparisonValue(target.value);
+            } }
+          >
+            <option>maior que</option>
+            <option>menor que</option>
+            <option>igual a</option>
+          </select>
+        </label>
+
+        <label htmlFor="value-filter">
+          Quantidade:
+          <input
+            type="number"
+            data-testid="value-filter"
+            id="value-filter"
+            value={ quantityValue }
+            onChange={ ({ target }) => {
+              setQuantityValue(target.value);
+            } }
+            className="number"
+          />
+        </label>
+
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ () => setFilter((prevState) => ([...prevState, {
+            column: columnValue,
+            comparison: comparisonValue,
+            value: quantityValue,
+          }])) }
         >
-          { renderArrayOptions
-            .map((choice) => <option key={ choice }>{ choice }</option>) }
-        </select>
-      </label>
-
-      <label htmlFor="comparison-filter">
-        Operador:
-        <select
-          data-testid="comparison-filter"
-          id="comparison-filter"
-          value={ comparisonValue }
-          onChange={ ({ target }) => {
-            setComparisonValue(target.value);
-          } }
-        >
-          <option>maior que</option>
-          <option>menor que</option>
-          <option>igual a</option>
-        </select>
-      </label>
-
-      <label htmlFor="value-filter">
-        Quantidade:
-        <input
-          type="number"
-          data-testid="value-filter"
-          id="value-filter"
-          value={ quantityValue }
-          onChange={ ({ target }) => {
-            setQuantityValue(target.value);
-          } }
-        />
-      </label>
-
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={ () => setFilter((prevState) => ([...prevState, {
-          column: columnValue,
-          comparison: comparisonValue,
-          value: quantityValue,
-        }])) }
-      >
-        Filtrar
-      </button>
-    </>
+          Filtrar
+        </button>
+      </div>
+    </section>
   );
 }
 
