@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import ContextFilter from '../Context/ContextFilter';
 
 function FilterSection() {
-  const contextFilter = useContext(ContextFilter);
+  const { setName, setFilter } = useContext(ContextFilter);
   const [nameValue, setNameValue] = useState('');
   const [columnValue, setColumnValue] = useState('population');
   const [comparisonValue, setComparisonValue] = useState('maior que');
@@ -19,7 +19,7 @@ function FilterSection() {
           value={ nameValue }
           onChange={ ({ target }) => {
             setNameValue(target.value);
-            contextFilter.setName(target.value);
+            setName(target.value);
           } }
         />
       </label>
@@ -74,7 +74,7 @@ function FilterSection() {
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ () => contextFilter.setFilter((prevState) => ([...prevState, {
+        onClick={ () => setFilter((prevState) => ([...prevState, {
           column: columnValue,
           comparison: comparisonValue,
           value: quantityValue,

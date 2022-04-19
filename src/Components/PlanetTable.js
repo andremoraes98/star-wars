@@ -3,31 +3,32 @@ import ContextFilter from '../Context/ContextFilter';
 import ContextPlanets from '../Context/ContextPlanets';
 
 function PlanetTable() {
-  const planetContext = useContext(ContextPlanets);
   const filterContext = useContext(ContextFilter);
+  const planetContext = useContext(ContextPlanets);
 
-  const filteredNamePlanets = planetContext
-    .filter((planet) => planet.name.includes(filterContext.filterByName.name));
-
-  const filteredOperadorPlanets = filteredNamePlanets
+  const filteredOperadorPlanets = planetContext
     .filter((planet) => filterContext.filterByNumericValues
       .map((filters) => {
         if (filters.comparison === 'maior que'
-          && planet[filters.column] > filters.value) {
+        && parseFloat(planet[filters.column]) > parseFloat(filters.value)) {
           return true;
         }
         if (filters.comparison === 'menor que'
-        && (planet[filters.column] < filters.value
-          || planet[filters.column] === 'unknown')) {
+        && (parseFloat(planet[filters.column]) < parseFloat(filters.value))) {
           return true;
         }
         if (filters.comparison === 'igual a'
-        && planet[filters.column] === filters.value) {
+        && parseFloat(planet[filters.column]) === parseFloat(filters.value)) {
           return true;
         }
         return false;
       })[0]);
-  console.log(filteredOperadorPlanets);
+
+  const filteredNamePlanets = filterContext.filterByNumericValues.length === 0
+    ? planetContext
+      .filter((planet) => planet.name.includes(filterContext.filterByName.name))
+    : filteredOperadorPlanets
+      .filter((planet) => planet.name.includes(filterContext.filterByName.name));
 
   return (
     <table>
@@ -76,49 +77,95 @@ function PlanetTable() {
       </thead>
       <tbody>
         {
-          filteredOperadorPlanets.map((planet, index) => (
-            <tr key={ index }>
-              <td>
-                { planet.name }
-              </td>
-              <td>
-                { planet.rotation_period }
-              </td>
-              <td>
-                { planet.orbital_period }
-              </td>
-              <td>
-                { planet.diameter }
-              </td>
-              <td>
-                { planet.climate }
-              </td>
-              <td>
-                { planet.gravity }
-              </td>
-              <td>
-                { planet.terrain }
-              </td>
-              <td>
-                { planet.surface_water }
-              </td>
-              <td>
-                { planet.population }
-              </td>
-              <td>
-                { planet.films }
-              </td>
-              <td>
-                { planet.created }
-              </td>
-              <td>
-                { planet.edited }
-              </td>
-              <td>
-                { planet.url }
-              </td>
-            </tr>
-          ))
+          filterContext.filterByNumericValues.length === 0
+            ? (filteredNamePlanets.map((planet, index) => (
+              <tr key={ index }>
+                <td>
+                  { planet.name }
+                </td>
+                <td>
+                  { planet.rotation_period }
+                </td>
+                <td>
+                  { planet.orbital_period }
+                </td>
+                <td>
+                  { planet.diameter }
+                </td>
+                <td>
+                  { planet.climate }
+                </td>
+                <td>
+                  { planet.gravity }
+                </td>
+                <td>
+                  { planet.terrain }
+                </td>
+                <td>
+                  { planet.surface_water }
+                </td>
+                <td>
+                  { planet.population }
+                </td>
+                <td>
+                  { planet.films }
+                </td>
+                <td>
+                  { planet.created }
+                </td>
+                <td>
+                  { planet.edited }
+                </td>
+                <td>
+                  { planet.url }
+                </td>
+              </tr>
+            )))
+            : (
+              filteredNamePlanets.map((planet, index) => (
+                <tr key={ index }>
+                  <td>
+                    { planet.name }
+                  </td>
+                  <td>
+                    { planet.rotation_period }
+                  </td>
+                  <td>
+                    { planet.orbital_period }
+                  </td>
+                  <td>
+                    { planet.diameter }
+                  </td>
+                  <td>
+                    { planet.climate }
+                  </td>
+                  <td>
+                    { planet.gravity }
+                  </td>
+                  <td>
+                    { planet.terrain }
+                  </td>
+                  <td>
+                    { planet.surface_water }
+                  </td>
+                  <td>
+                    { planet.population }
+                  </td>
+                  <td>
+                    { planet.films }
+                  </td>
+                  <td>
+                    { planet.created }
+                  </td>
+                  <td>
+                    { planet.edited }
+                  </td>
+                  <td>
+                    { planet.url }
+                  </td>
+                </tr>
+              ))
+            )
         }
       </tbody>
     </table>
