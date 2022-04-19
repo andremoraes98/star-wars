@@ -2,11 +2,17 @@ import React, { useState, useContext } from 'react';
 import ContextFilter from '../Context/ContextFilter';
 
 function FilterSection() {
-  const { setName, setFilter } = useContext(ContextFilter);
+  const { setName, setFilter, filterByNumericValues } = useContext(ContextFilter);
   const [nameValue, setNameValue] = useState('');
   const [columnValue, setColumnValue] = useState('population');
   const [comparisonValue, setComparisonValue] = useState('maior que');
   const [quantityValue, setQuantityValue] = useState(0);
+  const optionsArray = [
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ];
+  const renderArrayOptions = optionsArray
+    .filter((choice) => !filterByNumericValues
+      .map((filter) => filter.column === choice).includes(true));
 
   return (
     <>
@@ -34,11 +40,8 @@ function FilterSection() {
             setColumnValue(target.value);
           } }
         >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
+          { renderArrayOptions
+            .map((choice) => <option key={ choice }>{ choice }</option>) }
         </select>
       </label>
 
