@@ -37,8 +37,8 @@ label {
   display: flex;
   flex-direction: column;
   font-size: 20px;
-  width: 18%;
   min-width: 120px;
+  width: 18%;
 }
 
 label input, select {
@@ -73,33 +73,33 @@ img {
 .column-filter, .column-order {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   width: 40%;
-  flex-wrap: wrap;
 }
 
 .column-filter {
-  width: 100%;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 20px;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
 .radio-buttons {
+  align-items: flex-end;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
-  width: 20%;
   min-width: 160px;
+  width: 20%;
 }
 
 .radio {
-  flex-direction: row-reverse;
   align-items: center;
+  flex-direction: row-reverse;
   justify-content: flex-end;
-  width: 100%;
   margin: 0 auto;
+  width: 100%;
 }
 
 .radio input {
@@ -125,23 +125,23 @@ span {
 }
 
 hr {
-  width: 80%;
   border: 1px solid #ffe91f2d;
+  width: 80%;
 }
 
 .first-filter {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 40%;
+  display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  width: 40%;
 }
 
 #input-name {
-  width: 70%;
   margin-bottom: 20px;
+  width: 70%;
 }
 
-.column-filter label:nth-child(1), .column-filter label:nth-child(2) {
+.column-filter label:nth-child( 1 ), .column-filter label:nth-child( 2 ) {
   width: 35%;
 }
