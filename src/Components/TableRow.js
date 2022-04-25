@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 function TableRow({ planet }) {
   return (
     <tr>
-      <td className="td-border">
+      <td
+        className="td-border"
+        data-testid="planet-name"
+      >
         { planet.name }
       </td>
       <td className="td-border">

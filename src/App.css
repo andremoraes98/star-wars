@@ -28,7 +28,7 @@ tbody {
 }
 
 th {
-  background-color: rgba(111, 217, 184, 255);
+  background-color: #ffe81f;
   color: rgba(21, 21, 21, 255);
 }
 
@@ -69,11 +69,18 @@ img {
   width: 50%;
 }
 
-.column-filter {
+.column-filter, .column-order {
   align-items: center;
   display: flex;
   justify-content: space-around;
-  width: 70%;
+  width: 60%;
+  flex-wrap: wrap;
+}
+
+.radio {
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-around;
 }
 
 button {

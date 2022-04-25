@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import ContextFilter from '../Context/ContextFilter';
 import logo from '../image/projectIntro.gif';
+import OrderColumn from './OrderColumn';
 
 function FilterSection() {
   const { setName, setFilter, filterByNumericValues } = useContext(ContextFilter);
@@ -107,6 +108,7 @@ function FilterSection() {
           Limpar Filtros
         </button>
       </div>
+      <OrderColumn />
       { filterByNumericValues.map((choice) => (
         <div
           data-testid="filter"

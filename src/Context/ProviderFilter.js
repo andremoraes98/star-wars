@@ -5,14 +5,20 @@ import ContextFilter from './ContextFilter';
 function ProviderFilter({ children }) {
   const [name, setName] = useState('');
   const [filter, setFilter] = useState([]);
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
 
   const context = {
     filterByName: {
       name,
     },
     filterByNumericValues: filter,
+    order,
     setName,
     setFilter,
+    setOrder,
   };
 
   return (
