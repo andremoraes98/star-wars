@@ -6,7 +6,7 @@ function ProviderFilter({ children }) {
   const [name, setName] = useState('');
   const [filter, setFilter] = useState([]);
   const [order, setOrder] = useState({
-    column: 'population',
+    column: 'name',
     sort: 'ASC',
   });
 

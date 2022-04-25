@@ -3,11 +3,12 @@ import ContextFilter from '../Context/ContextFilter';
 import ContextPlanets from '../Context/ContextPlanets';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
-import { sortArrayASC } from '../helpers/sortArray';
+import { sortArrayASC, sortArrayDESC, sortNamePlanets } from '../helpers/sortArray';
 
 function PlanetTable() {
   const filterContext = useContext(ContextFilter);
   const planetContext = useContext(ContextPlanets);
+  const { order: { column, sort } } = filterContext;
 
   const filteredOperadorPlanets = planetContext
     .filter((planet) => !filterContext.filterByNumericValues
@@ -28,9 +29,9 @@ function PlanetTable() {
       }).includes(false));
 
   const filteredNamePlanets = filterContext.filterByNumericValues.length === 0
-    ? sortArrayASC(planetContext
+    ? sortNamePlanets(planetContext
       .filter((planet) => planet.name.includes(filterContext.filterByName.name)))
-    : sortArrayASC(filteredOperadorPlanets
+    : sortNamePlanets(filteredOperadorPlanets
       .filter((planet) => planet.name.includes(filterContext.filterByName.name)));
 
   return (
@@ -38,12 +39,21 @@ function PlanetTable() {
       <TableHead />
       <tbody>
         {
-          filteredNamePlanets.map((planets, index) => (
-            <TableRow
-              planet={ planets }
-              key={ index }
-            />
-          ))
+          sort === 'ASC'
+            ? sortArrayASC(filteredNamePlanets, column)
+              .map((planet, index) => (
+                <TableRow
+                  planet={ planet }
+                  key={ index }
+                />
+              ))
+            : sortArrayDESC(filteredNamePlanets, column)
+              .map((planets, index) => (
+                <TableRow
+                  planet={ planets }
+                  key={ index }
+                />
+              ))
         }
       </tbody>
     </table>
