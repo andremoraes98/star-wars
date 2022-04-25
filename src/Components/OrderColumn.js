@@ -30,41 +30,43 @@ function OrderColumn() {
         </select>
       </label>
 
-      <label
-        htmlFor="column-sort-input-asc"
-        className="radio"
-      >
-        Ascendente
-        <input
-          data-testid="column-sort-input-asc"
-          name="sort-input"
-          value="ASC"
-          checked={ sort === 'ASC' }
-          id="column-sort-input-asc"
-          type="radio"
-          onChange={ ({ target }) => {
-            setSort(target.value);
-          } }
-        />
-      </label>
+      <div className="radio-buttons">
+        <label
+          htmlFor="column-sort-input-asc"
+          className="radio"
+        >
+          Ascendente
+          <input
+            data-testid="column-sort-input-asc"
+            name="sort-input"
+            value="ASC"
+            checked={ sort === 'ASC' }
+            id="column-sort-input-asc"
+            type="radio"
+            onChange={ ({ target }) => {
+              setSort(target.value);
+            } }
+          />
+        </label>
 
-      <label
-        htmlFor="column-sort-input-desc"
-        className="radio"
-      >
-        Descendente
-        <input
-          data-testid="column-sort-input-desc"
-          name="sort-input"
-          value="DESC"
-          checked={ sort === 'DESC' }
-          id="column-sort-input-desc"
-          type="radio"
-          onChange={ ({ target }) => {
-            setSort(target.value);
-          } }
-        />
-      </label>
+        <label
+          htmlFor="column-sort-input-desc"
+          className="radio"
+        >
+          Descendente
+          <input
+            data-testid="column-sort-input-desc"
+            name="sort-input"
+            value="DESC"
+            checked={ sort === 'DESC' }
+            id="column-sort-input-desc"
+            type="radio"
+            onChange={ ({ target }) => {
+              setSort(target.value);
+            } }
+          />
+        </label>
+      </div>
 
       <button
         type="button"

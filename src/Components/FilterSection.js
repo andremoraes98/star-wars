@@ -1,10 +1,14 @@
 import React, { useState, useContext } from 'react';
 import ContextFilter from '../Context/ContextFilter';
 import logo from '../image/projectIntro.gif';
+import ColumnFilter from './ColumnFilter';
 import OrderColumn from './OrderColumn';
 
 function FilterSection() {
-  const { setName, setFilter, filterByNumericValues } = useContext(ContextFilter);
+  const { setName,
+    setFilter,
+    filterByNumericValues,
+    setOrder } = useContext(ContextFilter);
   const [nameValue, setNameValue] = useState('');
   const [columnValue, setColumnValue] = useState('population');
   const [comparisonValue, setComparisonValue] = useState('maior que');
@@ -28,66 +32,38 @@ function FilterSection() {
         alt="Star-Wars-Logo"
       />
 
-      <label htmlFor="name-filter">
-        Name:
-        <input
-          type="text"
-          data-testid="name-filter"
-          id="name-filter"
-          value={ nameValue }
-          onChange={ ({ target }) => {
-            setNameValue(target.value);
-            setName(target.value);
-          } }
-        />
-      </label>
-
-      <div className="column-filter">
-        <label htmlFor="column-filter">
-          Coluna:
-          <select
-            data-testid="column-filter"
-            id="column-filter"
-            value={ columnValue }
-            onChange={ ({ target }) => {
-              setColumnValue(target.value);
-            } }
+      <div className="first-filter">
+        <div>
+          <label
+            htmlFor="name-filter"
+            id="input-name"
           >
-            { renderArrayOptions
-              .map((choice) => <option key={ choice }>{ choice }</option>) }
-          </select>
-        </label>
+            Name:
+            <input
+              type="text"
+              data-testid="name-filter"
+              id="name-filter"
+              value={ nameValue }
+              onChange={ ({ target }) => {
+                setNameValue(target.value);
+                setName(target.value);
+              } }
+            />
+          </label>
 
-        <label htmlFor="comparison-filter">
-          Operador:
-          <select
-            data-testid="comparison-filter"
-            id="comparison-filter"
-            value={ comparisonValue }
-            onChange={ ({ target }) => {
-              setComparisonValue(target.value);
-            } }
-          >
-            <option>maior que</option>
-            <option>menor que</option>
-            <option>igual a</option>
-          </select>
-        </label>
+          <div className="column-filter">
+            <ColumnFilter
+              renderArrayOptions={ renderArrayOptions }
+              setColumnValue={ setColumnValue }
+              columnValue={ columnValue }
+              setComparisonValue={ setComparisonValue }
+              comparisonValue={ comparisonValue }
+              setQuantityValue={ setQuantityValue }
+              quantityValue={ quantityValue }
+            />
+          </div>
 
-        <label htmlFor="value-filter">
-          Quantidade:
-          <input
-            type="number"
-            data-testid="value-filter"
-            id="value-filter"
-            value={ quantityValue }
-            onChange={ ({ target }) => {
-              setQuantityValue(target.value);
-            } }
-            className="number"
-          />
-        </label>
-
+        </div>
         <button
           type="button"
           data-testid="button-filter"
@@ -99,16 +75,27 @@ function FilterSection() {
         >
           Filtrar
         </button>
-
-        <button
-          type="button"
-          data-testid="button-remove-filters"
-          onClick={ () => setFilter([]) }
-        >
-          Limpar Filtros
-        </button>
       </div>
+
+      <hr />
+
       <OrderColumn />
+
+      <hr />
+
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ () => {
+          setFilter([]);
+          setOrder({
+            column: 'name',
+            sort: 'ASC',
+          });
+        } }
+      >
+        Limpar Filtros
+      </button>
       { filterByNumericValues.map((choice) => (
         <div
           data-testid="filter"
